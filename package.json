@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Sharykhin/react-flux-todo",
   "devDependencies": {
-    "live-server": "^0.8.1"
+    "live-server": "^0.8.1",
+    "react-tools": "^0.13.3"
   }
 }
