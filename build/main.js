@@ -19,7 +19,7 @@ var SearchPanel = React.createClass({displayName: "SearchPanel",
 	}
 });
 
-var BookTableRow = React.createClass({displayName: "BookTableRow",
+var TodoTableRow = React.createClass({displayName: "TodoTableRow",
 	render: function() {
 		return (
 			React.createElement("tr", null, 
@@ -35,11 +35,11 @@ var BookTableRow = React.createClass({displayName: "BookTableRow",
 });
 
 
-var BookTable = React.createClass({displayName: "BookTable",
+var TodoTable = React.createClass({displayName: "TodoTable",
 	render: function() {
 		var rows = [];
 		this.props.books.forEach(function(book) {
-			rows.push(React.createElement(BookTableRow, {key: book.id, book: book, handleEditClickPanel: this.props.handleEditClickPanel}));
+			rows.push(React.createElement(TodoTableRow, {key: book.id, book: book, handleEditClickPanel: this.props.handleEditClickPanel}));
 		}.bind(this));
 
 		return (
@@ -57,17 +57,16 @@ var BookTable = React.createClass({displayName: "BookTable",
 	}
 });
 
-var BookForm = React.createClass({displayName: "BookForm",
+var TodoForm = React.createClass({displayName: "TodoForm",
   render: function() {
     return(
       React.createElement("form", {onSubmit: this.props.handleSubmitClick}, 
         React.createElement("label", {forHtml: "title"}, "Title"), React.createElement("input", {ref: "title", name: "title", type: "text", value: this.props.book.title, onChange: this.onChange}), 
         React.createElement("label", {forHtml: "category"}, "Category"), 
         React.createElement("select", {ref: "category", name: "category", value: this.props.book.category, onChange: this.onChange}, 
-          React.createElement("option", {value: "CRIME"}, "Crime"), 
-          React.createElement("option", {value: "HISTORY"}, "History"), 
-          React.createElement("option", {value: "HORROR"}, "Horror"), 
-          React.createElement("option", {value: "SCIFI"}, "SciFi")
+          React.createElement("option", {value: "HOME"}, "Home"), 
+          React.createElement("option", {value: "BUSINESS"}, "Business"), 
+          React.createElement("option", {value: "TODAY"}, "Today")
         ), 
         React.createElement("br", null), 
         React.createElement("input", {type: "submit", value: this.props.book.id?"Save (id = " +this.props.book.id+ ")":"Add"}), 
@@ -84,7 +83,7 @@ var BookForm = React.createClass({displayName: "BookForm",
   }
 });
 
-var BookPanel = React.createClass({displayName: "BookPanel",
+var TodoPanel = React.createClass({displayName: "TodoPanel",
 	getInitialState: function() {
 		return {
 			books: [],
@@ -106,10 +105,10 @@ var BookPanel = React.createClass({displayName: "BookPanel",
 			            onSearchChanged: this.onSearchChanged, 
 			            onClearSearch: this.onClearSearch}
 			          ), 
-			          React.createElement(BookTable, {books: this.state.books, handleEditClickPanel: this.handleEditClickPanel})
+			          React.createElement(TodoTable, {books: this.state.books, handleEditClickPanel: this.handleEditClickPanel})
 			        ), 
 			        React.createElement("div", {className: "one-half column"}, 
-			          React.createElement(BookForm, {
+			          React.createElement(TodoForm, {
 			            book: this.state.editingBook, 
 			            message: this.state.message, 
 			            handleChange: this.handleChange, 
@@ -256,6 +255,6 @@ var BookPanel = React.createClass({displayName: "BookPanel",
 });
 
 	React.render(
-	React.createElement(BookPanel, {url: "http://localhost:2403/books/"}),
+	React.createElement(TodoPanel, {url: "http://localhost:2403/books/"}),
 	document.getElementById('content')
 )

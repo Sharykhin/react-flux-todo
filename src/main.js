@@ -19,7 +19,7 @@ var SearchPanel = React.createClass({
 	}
 });
 
-var BookTableRow = React.createClass({
+var TodoTableRow = React.createClass({
 	render: function() {
 		return (
 			<tr>
@@ -35,11 +35,11 @@ var BookTableRow = React.createClass({
 });
 
 
-var BookTable = React.createClass({
+var TodoTable = React.createClass({
 	render: function() {
 		var rows = [];
 		this.props.books.forEach(function(book) {
-			rows.push(<BookTableRow key={book.id} book={book} handleEditClickPanel={this.props.handleEditClickPanel} />);
+			rows.push(<TodoTableRow key={book.id} book={book} handleEditClickPanel={this.props.handleEditClickPanel} />);
 		}.bind(this));
 
 		return (
@@ -57,17 +57,16 @@ var BookTable = React.createClass({
 	}
 });
 
-var BookForm = React.createClass({
+var TodoForm = React.createClass({
   render: function() {
     return(
       <form onSubmit={this.props.handleSubmitClick}>
         <label forHtml='title'>Title</label><input ref='title' name='title' type='text' value={this.props.book.title} onChange={this.onChange}/>
         <label forHtml='category'>Category</label>
         <select ref='category' name='category' value={this.props.book.category} onChange={this.onChange} >
-          <option value='CRIME' >Crime</option>
-          <option value='HISTORY'>History</option>
-          <option value='HORROR'>Horror</option>
-          <option value='SCIFI'>SciFi</option>
+          <option value='HOME' >Home</option>
+          <option value='BUSINESS'>Business</option>
+          <option value='TODAY'>Today</option>          
         </select>
         <br />
         <input type='submit' value={this.props.book.id?"Save (id = " +this.props.book.id+ ")":"Add"} />
@@ -84,7 +83,7 @@ var BookForm = React.createClass({
   }
 });
 
-var BookPanel = React.createClass({
+var TodoPanel = React.createClass({
 	getInitialState: function() {
 		return {
 			books: [],
@@ -106,10 +105,10 @@ var BookPanel = React.createClass({
 			            onSearchChanged={this.onSearchChanged}
 			            onClearSearch={this.onClearSearch}
 			          />
-			          <BookTable books={this.state.books} handleEditClickPanel={this.handleEditClickPanel} />
+			          <TodoTable books={this.state.books} handleEditClickPanel={this.handleEditClickPanel} />
 			        </div>
 			        <div className="one-half column">
-			          <BookForm
+			          <TodoForm
 			            book={this.state.editingBook}
 			            message={this.state.message}
 			            handleChange={this.handleChange}
@@ -256,6 +255,6 @@ var BookPanel = React.createClass({
 });
 
 	React.render(
-	<BookPanel url='http://localhost:2403/books/' />,
+	<TodoPanel url='http://localhost:2403/books/' />,
 	document.getElementById('content')
 )
