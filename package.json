@@ -16,8 +16,14 @@
     "url": "https://github.com/Sharykhin/react-flux-todo/issues"
   },
   "homepage": "https://github.com/Sharykhin/react-flux-todo",
+  "dependencies": {
+    "flux": "^2.0.3",
+    "jquery": "^2.1.4",
+    "react": "^0.13.3",
+    "reactify": "^1.1.1"
+  },
   "devDependencies": {
-    "live-server": "^0.8.1",
+    "http-server": "^0.8.0",    
     "react-tools": "^0.13.3"
   }
 }
