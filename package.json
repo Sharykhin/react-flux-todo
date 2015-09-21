@@ -4,7 +4,8 @@
   "description": "simple react todos",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "watchify  src/main.js -t reactify -o build/bundle.js",
+    "build": "browserify src/main.js -t reactify  | uglifyjs -mc warnings=false > build/bundle.js"
   },
   "repository": {
     "type": "git",

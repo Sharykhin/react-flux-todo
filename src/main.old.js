@@ -1,15 +1,15 @@
-var SearchPanel = React.createClass({displayName: "SearchPanel",
+var SearchPanel = React.createClass({
 	render: function() {
 		return (
-			React.createElement("div", {className: "row"}, 
-				React.createElement("div", {className: "one-fourth column"}, 
-					"Filter:  ", 
-					React.createElement("input", {ref: "search", type: "text", 
-						value: this.props.search, 
-						onChange: this.onSearchChanged}), 
-						this.props.search?React.createElement("button", {onClick: this.props.onClearSearch}, "x"):null
-				)
-			)
+			<div className="row">
+				<div className="one-fourth column">
+					Filter: &nbsp;
+					<input ref='search' type='text' 
+						value={this.props.search} 
+						onChange={this.onSearchChanged}  />
+						{this.props.search?<button onClick={this.props.onClearSearch}>x</button>:null} 
+				</div>
+			</div>
 			)
 	},
 
@@ -19,14 +19,14 @@ var SearchPanel = React.createClass({displayName: "SearchPanel",
 	}
 });
 
-var TodoTableRow = React.createClass({displayName: "TodoTableRow",
+var TodoTableRow = React.createClass({
 	render: function() {
 		return (
-			React.createElement("tr", null, 
-				React.createElement("td", null, this.props.book.title), 
-				React.createElement("td", null, this.props.book.category), 
-				React.createElement("td", null, React.createElement("a", {href: "#", onClick: this.onClick}, "Edit"))
-			)
+			<tr>
+				<td>{this.props.book.title}</td>
+				<td>{this.props.book.category}</td>
+				<td><a href='#' onClick={this.onClick}>Edit</a></td>
+			</tr>
 			);
 	},
 	onClick: function(id) {
@@ -35,45 +35,45 @@ var TodoTableRow = React.createClass({displayName: "TodoTableRow",
 });
 
 
-var TodoTable = React.createClass({displayName: "TodoTable",
+var TodoTable = React.createClass({
 	render: function() {
 		var rows = [];
 		this.props.books.forEach(function(book) {
-			rows.push(React.createElement(TodoTableRow, {key: book.id, book: book, handleEditClickPanel: this.props.handleEditClickPanel}));
+			rows.push(<TodoTableRow key={book.id} book={book} handleEditClickPanel={this.props.handleEditClickPanel} />);
 		}.bind(this));
 
 		return (
-			React.createElement("table", null, 
-				React.createElement("thead", null, 
-					React.createElement("tr", null, 
-						React.createElement("th", null, "Title"), 
-						React.createElement("th", null, "Category"), 
-						React.createElement("th", null, "Edit")
-					)
-				), 
-				React.createElement("tbody", null, rows)
-			)
+			<table>
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Category</th>
+						<th>Edit</th>
+					</tr>
+				</thead>
+				<tbody>{rows}</tbody>
+			</table>
 			);
 	}
 });
 
-var TodoForm = React.createClass({displayName: "TodoForm",
+var TodoForm = React.createClass({
   render: function() {
     return(
-      React.createElement("form", {onSubmit: this.props.handleSubmitClick}, 
-        React.createElement("label", {forHtml: "title"}, "Title"), React.createElement("input", {ref: "title", name: "title", type: "text", value: this.props.book.title, onChange: this.onChange}), 
-        React.createElement("label", {forHtml: "category"}, "Category"), 
-        React.createElement("select", {ref: "category", name: "category", value: this.props.book.category, onChange: this.onChange}, 
-          React.createElement("option", {value: "HOME"}, "Home"), 
-          React.createElement("option", {value: "BUSINESS"}, "Business"), 
-          React.createElement("option", {value: "TODAY"}, "Today")
-        ), 
-        React.createElement("br", null), 
-        React.createElement("input", {type: "submit", value: this.props.book.id?"Save (id = " +this.props.book.id+ ")":"Add"}), 
-        this.props.book.id?React.createElement("button", {onClick: this.props.handleDeleteClick}, "Delete"):null, 
-        this.props.book.id?React.createElement("button", {onClick: this.props.handleCancelClick}, "Cancel"):null, 
-        this.props.message?React.createElement("div", null, this.props.message):null
-      )
+      <form onSubmit={this.props.handleSubmitClick}>
+        <label forHtml='title'>Title</label><input ref='title' name='title' type='text' value={this.props.book.title} onChange={this.onChange}/>
+        <label forHtml='category'>Category</label>
+        <select ref='category' name='category' value={this.props.book.category} onChange={this.onChange} >
+          <option value='HOME' >Home</option>
+          <option value='BUSINESS'>Business</option>
+          <option value='TODAY'>Today</option>          
+        </select>
+        <br />
+        <input type='submit' value={this.props.book.id?"Save (id = " +this.props.book.id+ ")":"Add"} />
+        {this.props.book.id?<button onClick={this.props.handleDeleteClick}>Delete</button>:null}
+        {this.props.book.id?<button onClick={this.props.handleCancelClick}>Cancel</button>:null}
+        {this.props.message?<div>{this.props.message}</div>:null}
+      </form>
     );
   },
   onChange: function() {
@@ -83,7 +83,7 @@ var TodoForm = React.createClass({displayName: "TodoForm",
   }
 });
 
-var TodoPanel = React.createClass({displayName: "TodoPanel",
+var TodoPanel = React.createClass({
 	getInitialState: function() {
 		return {
 			books: [],
@@ -98,26 +98,26 @@ var TodoPanel = React.createClass({displayName: "TodoPanel",
 
 	render: function() {
 		return (
-				React.createElement("div", {className: "row"}, 
-			        React.createElement("div", {className: "one-half column"}, 
-			          React.createElement(SearchPanel, {
-			            search: this.state.search, 
-			            onSearchChanged: this.onSearchChanged, 
-			            onClearSearch: this.onClearSearch}
-			          ), 
-			          React.createElement(TodoTable, {books: this.state.books, handleEditClickPanel: this.handleEditClickPanel})
-			        ), 
-			        React.createElement("div", {className: "one-half column"}, 
-			          React.createElement(TodoForm, {
-			            book: this.state.editingBook, 
-			            message: this.state.message, 
-			            handleChange: this.handleChange, 
-			            handleSubmitClick: this.handleSubmitClick, 
-			            handleCancelClick: this.handleCancelClick, 
-			            handleDeleteClick: this.handleDeleteClick}
-			          )
-			        )
-			      )
+				<div className="row">
+			        <div className="one-half column">
+			          <SearchPanel
+			            search={this.state.search}
+			            onSearchChanged={this.onSearchChanged}
+			            onClearSearch={this.onClearSearch}
+			          />
+			          <TodoTable books={this.state.books} handleEditClickPanel={this.handleEditClickPanel} />
+			        </div>
+			        <div className="one-half column">
+			          <TodoForm
+			            book={this.state.editingBook}
+			            message={this.state.message}
+			            handleChange={this.handleChange}
+			            handleSubmitClick={this.handleSubmitClick}
+			            handleCancelClick={this.handleCancelClick}
+			            handleDeleteClick={this.handleDeleteClick}
+			          />
+			        </div>
+			      </div>
 			);
 	},
 	componentDidMount: function() {
@@ -255,6 +255,6 @@ var TodoPanel = React.createClass({displayName: "TodoPanel",
 });
 
 	React.render(
-	React.createElement(TodoPanel, {url: "http://localhost:2403/books/"}),
+	<TodoPanel url='http://localhost:2403/books/' />,
 	document.getElementById('content')
 )
