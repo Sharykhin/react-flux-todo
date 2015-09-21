@@ -12,6 +12,3 @@ dpd:
 
 install:
 	npm install
-
-dpd:
-	cd deployd && cd Todo && dpd
