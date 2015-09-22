@@ -36,7 +36,7 @@ function update(id, updates) {
  * Delete a TODO item.
  * @param  {string} id
  */
-function delete(id) {
+function destroy(id) {
   delete _todos[id];
 }
 
@@ -80,11 +80,11 @@ var TodoStore = assign({}, EventEmitter.prototype, {
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
-});
+}); 
 
-TodoStore.prototype[TodoConstants.TODO.CREATE] = create;
-TodoStore.prototype[TodoConstants.TODO.UPDATE] = update;
-TodoStore.prototype[TodoConstants.TODO.DELETE] = destroy;
+TodoStore[TodoConstants.CREATE] = create;
+TodoStore[TodoConstants.UPDATE] = update;
+TodoStore[TodoConstants.DELETE] = destroy;
 
 
 AppDispatcher.register(function (action) {

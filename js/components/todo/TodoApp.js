@@ -1,4 +1,7 @@
 var React = require('react');
+var TodoStore = require('../../stores/TodoStore');
+
+var TodoTextInput = require('./TodoTextInput');
 
 var TodoApp = React.createClass({
 	propTypes: {
@@ -7,7 +10,10 @@ var TodoApp = React.createClass({
 	render: function() {
 		var name = 'Todo List';
 		return (
-			<h2>{name}</h2>
+			<div>
+				<h2>{name}</h2>
+				<TodoTextInput />
+			</div>
 		);
 	}
 });

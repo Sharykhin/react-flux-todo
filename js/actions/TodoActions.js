@@ -4,7 +4,7 @@ var TodoConstants = require('../constants/TodoConstants');
 var TodoActions = {
 	create : function() {
 		AppDispatcher.dispatch({
-			actionType: TodoConstants.TODO.CREATE,
+			actionType: TodoConstants.CREATE,
 			text: text
 		})
 	},
@@ -14,7 +14,7 @@ var TodoActions = {
 	 */
 	updateText: function(id, text) {
 		AppDispatcher.dispatch({
-		  actionType: TodoConstants.TODO.UPDATE,
+		  actionType: TodoConstants.UPDATE,
 		  id: id,
 		  text: text
 		});
@@ -22,9 +22,9 @@ var TodoActions = {
 	/**
 	 * @param  {string} id
 	 */
-	delete: function(id) {
+	destroy: function(id) {
 		AppDispatcher.dispatch({
-		  actionType: TodoConstants.TODO.DELETE,
+		  actionType: TodoConstants.DELETE,
 		  id: id
 		});
 	},
