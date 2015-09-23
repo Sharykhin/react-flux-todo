@@ -97,6 +97,7 @@ TodoStore[TodoConstants.DELETE] = destroy;
 TodoStore[TodoConstants.DELETE_COMPLETED] = destroyCompleted;
 TodoStore[TodoConstants.COMPLETE] = update;
 TodoStore[TodoConstants.UNDO_COMPLETE] = update;
+TodoStore[TodoConstants.UPDATE_TEXT] = update;
 
 
 AppDispatcher.register(function (action) {

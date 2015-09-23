@@ -55,6 +55,18 @@ var TodoActions = {
     			data: data
     		}
     	});
+	},
+
+	updateText: function(id, text) {
+		AppDispatcher.dispatch({
+			actionType: TodoConstants.UPDATE_TEXT,
+			params: {
+				id: id,
+				data: {
+					text: text
+				}
+			}
+		})
 	}
 };
 

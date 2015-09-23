@@ -6,5 +6,6 @@ module.exports = keyMirror({
     UPDATE: null,
     DELETE_COMPLETED:null,
     UNDO_COMPLETE: null,
-    COMPLETE: null
+    COMPLETE: null,
+    UPDATE_TEXT:null
 });
