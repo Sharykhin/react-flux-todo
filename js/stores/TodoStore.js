@@ -10,16 +10,15 @@ var _todos = {};
  * Create a TODO item.
  * @param  {string} text The content of the TODO
  */
-function create(text) {
-  // Hand waving here -- not showing how this interacts with XHR or persistent
-  // server-side storage.
-  // Using the current timestamp + random number in place of a real id.
+function create(params) {
+  var text = params.text;
+
   var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
   _todos[id] = {
     id: id,
     complete: false,
     text: text
-  };
+  };  
 }
 
 /**
@@ -28,16 +27,26 @@ function create(text) {
  * @param {object} updates An object literal containing only the data to be
  *     updated.
  */
-function update(id, updates) {
+function update(params) {
+   var id = params.id;
+   var updates = params.data;
   _todos[id] = assign({}, _todos[id], updates);
 }
 
 /**
  * Delete a TODO item.
- * @param  {string} id
  */
-function destroy(id) {
+function destroy(params) {
+  var id = params.id;
   delete _todos[id];
+}
+
+function destroyCompleted () {
+  for (var id in _todos) {
+    if(_todos[id].complete) {
+      destroy(id);
+    }
+  }
 }
 
 var TodoStore = assign({}, EventEmitter.prototype, {
@@ -85,6 +94,9 @@ var TodoStore = assign({}, EventEmitter.prototype, {
 TodoStore[TodoConstants.CREATE] = create;
 TodoStore[TodoConstants.UPDATE] = update;
 TodoStore[TodoConstants.DELETE] = destroy;
+TodoStore[TodoConstants.DELETE_COMPLETED] = destroyCompleted;
+TodoStore[TodoConstants.COMPLETE] = update;
+TodoStore[TodoConstants.UNDO_COMPLETE] = update;
 
 
 AppDispatcher.register(function (action) {
@@ -93,7 +105,7 @@ AppDispatcher.register(function (action) {
   }
 
   TodoStore[action.actionType](action.params);
-  todoStore.emitChange();
+  TodoStore.emitChange();
 });
 
 module.exports = TodoStore;

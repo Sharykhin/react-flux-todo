@@ -1,20 +1,44 @@
 var React = require('react');
 var TodoStore = require('../../stores/TodoStore');
 
-var TodoTextInput = require('./TodoTextInput');
+var Header = require('./Header');
+var Footer = require('./Footer');
+var MainSection = require('./MainSection');
+
+
+function getTodoState() {
+	return {
+			allTodos: TodoStore.getAll(),
+			areAllComplete: TodoStore.areAllComplete()
+	};
+}
 
 var TodoApp = React.createClass({
+
 	propTypes: {
 		name: React.PropTypes.string
 	},
-	render: function() {
-		var name = 'Todo List';
+	getInitialState: function() {
+		return getTodoState();
+	},
+	componentDidMount: function() {
+		TodoStore.addChangeListener(this._onChange);
+	},
+	render: function() {	
 		return (
 			<div>
-				<h2>{name}</h2>
-				<TodoTextInput />
+				<Header />
+				<MainSection
+		          allTodos={this.state.allTodos}
+		          areAllComplete={this.state.areAllComplete}
+		        />
+				<Footer allTodos={this.state.allTodos} />
 			</div>
 		);
+	},
+
+	_onChange: function() {
+		this.setState(getTodoState());
 	}
 });
 
