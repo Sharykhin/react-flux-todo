@@ -7,5 +7,6 @@ module.exports = keyMirror({
     DELETE_COMPLETED:null,
     UNDO_COMPLETE: null,
     COMPLETE: null,
-    UPDATE_TEXT:null
+    UPDATE_TEXT:null,
+    TOGGLE_COMPLETE_ALL: null
 });

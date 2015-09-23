@@ -67,6 +67,12 @@ var TodoActions = {
 				}
 			}
 		})
+	},
+
+	toggleCompleteAll: function() {
+		AppDispatcher.dispatch({
+      		actionType: TodoConstants.TOGGLE_COMPLETE_ALL
+    	});
 	}
 };
 

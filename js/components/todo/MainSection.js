@@ -27,13 +27,18 @@ var MainSection = React.createClass({
 	    		<input
 	    			id="toggle-all"
 	    			type="checkbox"
+	    			onChange={this._onToggleCompleteAll}
 	    			checked={this.props.areAllComplete ? 'checked' : ''}
 	    		/>
 	    		<label htmlFor="toggle-all">Mark all as complete</label>
 	    		<ul id="todo-list">{todos}</ul>
 	    	</section>
     	);
-	}
+	},
+
+	_onToggleCompleteAll: function() {
+    	TodoActions.toggleCompleteAll();
+  	}
 });
 
 module.exports = MainSection;
