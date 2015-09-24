@@ -33,6 +33,20 @@ function update(params) {
   _todos[id] = assign({}, _todos[id], updates);
 }
 
+function toggleAll () {
+  if (TodoStore.areAllComplete()) {
+    updateAll({complete: false});
+  } else {
+     updateAll({complete: true});
+  }
+}
+
+function updateAll(updates) {
+  for (var id in _todos) {
+      update({id:id, data:updates});
+    }
+}
+
 /**
  * Delete a TODO item.
  */
@@ -41,10 +55,10 @@ function destroy(params) {
   delete _todos[id];
 }
 
-function destroyCompleted () {
+function destroyCompleted () {  
   for (var id in _todos) {
     if(_todos[id].complete) {
-      destroy(id);
+      destroy({id:id});
     }
   }
 }
@@ -98,7 +112,7 @@ TodoStore[TodoConstants.DELETE_COMPLETED] = destroyCompleted;
 TodoStore[TodoConstants.COMPLETE] = update;
 TodoStore[TodoConstants.UNDO_COMPLETE] = update;
 TodoStore[TodoConstants.UPDATE_TEXT] = update;
-TodoStore[TodoConstants.TOGGLE_COMPLETE_ALL] = update;
+TodoStore[TodoConstants.TOGGLE_COMPLETE_ALL] = toggleAll;
 
 
 AppDispatcher.register(function (action) {
