@@ -1,18 +1,36 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher'); 
-var EventEmitter = require('events').EventEmitter;
 var TodoConstants = require('../constants/TodoConstants');
-var extend = require('../utils/extend');
+var TodoStore = require('./models/TodoModel');
 
 var CHANGE_EVENT='change';
 
 var _todos = {};
 
-TodoStore = function() {};
+var _handlers = {
+	_data: null,
+	then: function(fn) {
+		return fn(this._data);
+	}
+};
 
-extend(EventEmitter,TodoStore);
+_handlers[TodoConstants.TODO.CREATE] = function(params) {
+	console.log('handle '+TodoConstants.TODO.CREATE+':');
+	console.log(params);
+	return this;
+};
 
-TodoStore.prototype.getAll = function() {
-	return _todos;
-}
+var TodoStore = new TodoStore();
+
+AppDispatcher.register(function(action){
+	if(!(action.actionType in _handlers)) {
+		return;
+	}
+
+	_handlers[action.actionType](action.params).then(function(data) {	
+		TodoStore.emitChange(CHANGE_EVENT);
+	});
+	
+
+});
 
 module.exports = TodoStore;
