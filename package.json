@@ -22,7 +22,7 @@
   "scripts": {
     "start": "watchify -o app/assets/js/bundle.js -v -d app/scripts/app.js",
     "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > app/assets/js/bundle.min.js",
-    "serve": "http-server -p 8000 -o",
+    "serve": "cd app && http-server -p 8000 -o",
     "test": "echo 'Test is working'"
   },
   "author": "Siarhei Sharykhin",
