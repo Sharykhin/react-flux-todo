@@ -20,8 +20,8 @@
     "http-server": "~0.8.4"
   },
   "scripts": {
-    "start": "watchify -o app/assets/js/bundle.js -v -d app/scripts/app.js",
-    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > app/assets/js/bundle.min.js",
+    "start": "watchify -o app/dist/js/bundle.js -v -d app/scripts/app.js",
+    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > app/dist/js/bundle.min.js",
     "serve": "cd app && http-server -p 8000 -o",
     "test": "echo 'Test is working'"
   },
