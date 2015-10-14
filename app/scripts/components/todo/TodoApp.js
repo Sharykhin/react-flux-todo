@@ -26,7 +26,7 @@ var TodoApp = React.createClass({
 	render: function() {
 		console.log(this.state);
 		return <div>
-				<MainSection />
+				<MainSection todos={this.state.todos} />
 			</div>
 	}
 });

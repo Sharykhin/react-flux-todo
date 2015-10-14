@@ -3,7 +3,7 @@ var EventEmitter = require('events').EventEmitter;
 
 var CHANGE_EVENT='change';
 
-var _todos = [{title:'test',done:false}];
+var _todos = [{title:'test',done:true}];
 
 TodoModel = function() {};
 
