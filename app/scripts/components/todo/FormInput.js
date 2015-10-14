@@ -20,7 +20,7 @@ var TodoFormInput = React.createClass({
 		return (			
 			<form className="form-horizontal">				 
 				 <div className="form-group">
-				 		<div className="col-sm-10 col-md-10 col-xs-10">
+				 		<div className="col-sm-10 col-md-10 col-xs-8">
 					 		<input 
 					 			className="form-control" 
 								placeholder={this.props.placeholder}
@@ -30,7 +30,7 @@ var TodoFormInput = React.createClass({
 								value={this.state.value}
 								autoFocus={true} />
 						</div>
-						<div className="col-sm-2 col-md-2 col-xs-2">			 
+						<div className="col-sm-2 col-md-2 col-xs-4">			 
 						 	<button type="button" onClick={this._save} className="btn btn-default">Add Todo</button>
 						 </div>
 				 </div> 	

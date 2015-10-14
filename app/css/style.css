@@ -3,3 +3,7 @@ h1 {text-align: center;}
 h1 + hr {width:80%;}
 
 .isDone {text-decoration: line-through;}
+
+.item-text {font-size: 1.7em;}
+.item-buttons {text-align: right;}
+.item-buttons > button {margin-left: 10px;}
