@@ -7,7 +7,8 @@ var TodoActions = {
 		AppDispatcher.dispatch({
 			actionType: TodoConstants.TODO.CREATE,
 			params: {
-				text: text
+				text: text,
+				done: false
 			}
 		})
 	}
